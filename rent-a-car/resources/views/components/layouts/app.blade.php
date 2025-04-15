@@ -12,6 +12,8 @@
 
 <body class='px-5 lg:px-20 py-8 h-full'>
     {{ $slot }}
+
+    <script src="https://kit.fontawesome.com/6f902d2607.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
