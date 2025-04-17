@@ -1,0 +1,6 @@
+<?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\carsController;
+
+Route::get('/cars', [carsController::class, 'getAll'])->name('cars');
+Route::post('/cars/{id}', [carsController::class, 'getById'])->name('getVehiculeById');

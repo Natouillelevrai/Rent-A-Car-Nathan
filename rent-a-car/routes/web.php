@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\carsController;
+use App\Http\Controllers\ViewController;
 
-Route::get('/', [carsController::class, 'index'])->name('home');
-Route::get('/vehicules', [carsController::class, 'allVehicules'])->name('home');
+Route::get('/', [ViewController::class, 'index'])->name('home');
+Route::get('/vehicules', [ViewController::class, 'allVehicules'])->name('vehicules');

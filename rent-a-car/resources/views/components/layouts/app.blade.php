@@ -10,7 +10,7 @@
     <title>{{ $title ?? 'Page Title' }}</title>
 </head>
 
-<body class='px-5 lg:px-20 py-8 h-full'>
+<body class='px-5 lg:px-20 py-8 h-full work-sans'>
     {{ $slot }}
 
     <script src="https://kit.fontawesome.com/6f902d2607.js" crossorigin="anonymous"></script>
