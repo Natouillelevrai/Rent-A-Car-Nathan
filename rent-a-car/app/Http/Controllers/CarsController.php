@@ -6,38 +6,53 @@ use Illuminate\Support\Facades\DB;
 
 class carsController extends Controller
 {
-    public function index() {
+    function getAll() {
         $cars = DB::table('vehicule as v')
-        ->select(
-            'v.id',
-            'v.brand',
-            'v.model',
-            DB::raw('MAX(vp.image_url) as img'),
-            'v.year',
-            'v.price_per_day',
-            'v.doors',
-            'v.fuel_type',
-            'v.air_conditioning',
-            'v.seats',
-            'v.transmission',
-            'vt.name as type',
-            DB::raw("GROUP_CONCAT(e.name SEPARATOR ', ') as equipements")
-        )
-        ->join('vehicule_equipment as ve', 've.vehicule_id', '=', 'v.id')
-        ->join('equipment as e', 've.equipment_id', '=', 'e.id')
-        ->join('vehicule_type as vt', 'vt.id', '=', 'v.vehicule_type_id')
-        ->join('vehicule_photo as vp', 'vp.vehicule_id', '=', 'v.id')
-        ->groupBy('v.id')
-        ->limit(6)
-        ->get();
+            ->select(
+                'v.id',
+                'v.brand',
+                'v.model',
+                DB::raw('MAX(vp.image_url) as img'),
+                'v.year',
+                'v.price_per_day',
+                'v.doors',
+                'v.fuel_type',
+                'v.air_conditioning',
+                'v.seats',
+                'v.transmission',
+                'vt.name as type',
+                DB::raw("GROUP_CONCAT(e.name SEPARATOR ', ') as equipements")
+            )
 
-        return view("home", [
-            "cars" => $cars
-        ]);
+            ->join('vehicule_equipment as ve', 've.vehicule_id', '=', 'v.id')
+            ->join('equipment as e', 've.equipment_id', '=', 'e.id')
+            ->join('vehicule_type as vt', 'vt.id', '=', 'v.vehicule_type_id')
+            ->join('vehicule_photo as vp', 'vp.vehicule_id', '=', 'v.id')
+            ->groupBy('v.id');
+
+        if (isset($_GET['type']) && $_GET['type'] != '') {
+            $cars->where('vt.name', $_GET['type']);
+        }
+
+        if (isset($_GET['fuel_type']) && $_GET['fuel_type'] != '') {
+            $cars->where('v.fuel_type', $_GET['fuel_type']);
+        }
+
+        if (isset($_GET['transmission']) && $_GET['transmission'] != '') {
+            $cars->where('v.transmission', $_GET['transmission']);
+        }
+
+        if (isset($_GET['limit']) && $_GET['limit'] != '') {
+            $cars->limit($_GET['limit']);
+        }
+
+        $cars = $cars->get();
+
+        return response()->json($cars);
     }
 
-    public function allVehicules() {
-        $cars = DB::table('vehicule as v')
+    function getById($id) {
+        $car = DB::table('vehicule as v')
         ->select(
             'v.id',
             'v.brand',
@@ -58,10 +73,9 @@ class carsController extends Controller
         ->join('vehicule_type as vt', 'vt.id', '=', 'v.vehicule_type_id')
         ->join('vehicule_photo as vp', 'vp.vehicule_id', '=', 'v.id')
         ->groupBy('v.id')
+        ->where('v.id', $id)
         ->get();
 
-        return view("vehicules", [
-            "cars" => $cars
-        ]);  
+        return response()->json($cars);
     }
 }
