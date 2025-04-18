@@ -1,9 +1,9 @@
 <x-layouts.app>
     <div class='w-full h-svh flex flex-row justify-between'>
         <div class='w-1/2 h-full p-5'>
-            <h1 class='text-4xl pb-4 font-bold' id='carTitle'>TITLE</h1>
+            <h1 class='text-4xl pb-4 font-bold' id='carTitle'></h1>
             <p class='text-[#5937E0] text-4xl flex items-center font-bold'>
-                <span id='carPrice'>25</span>
+                <span id='carPrice'></span>
                 $
                 <span class='text-base text-black font-light ml-2'>/ day</span>
             </p>
@@ -74,5 +74,6 @@
         <div class='w-full py-3 flex flex-row justify-between flex-wrap' id='carsList'></div>
     </div>
 
+    <p class='hidden' id='carId'>{{ $id }}<p>
     @vite('resources/js/vehicule.js')
 </x-layouts.app>

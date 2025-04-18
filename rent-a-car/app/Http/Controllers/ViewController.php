@@ -61,6 +61,14 @@ class ViewController extends Controller
     }
 
     public function vehicule($id) {
-        return view("vehicule", []);
+        return view("vehicule", [
+            'id' => $id
+        ]);
+    }
+
+    public function reservation($id) {
+        return view("reservation", [
+            'id' => $id
+        ]);
     }
 }
