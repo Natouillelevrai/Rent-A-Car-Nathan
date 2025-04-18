@@ -32,6 +32,14 @@
         </div>
     </div>
 
+    <div class='w-full h-100 mb-25 p-20 text-white bg-[#5937E0] rounded-3xl flex flex-col justify-between bg-contain bg-no-repeat bg-right' 
+    style="background-image: url('{{ asset('img/blur-car.png') }}');">
+        <h2 class='text-5xl font-semibold'>Looking for a car ?</h2>
+        <p class='text-4xl font-semibold'>+537 547-6401</p>
+        <p>Amet cras hac orci lacus. Faucibus ipsum arcu lectus nibh sapien bibendum ullamcorper in...</p>
+        <a class='bg-[#FF9E0C] p-3 w-10/100 rounded-xl flex flex-row justify-center items-center'>Book now</a>
+    </div>
+
     <p id='carId' class='hidden'>{{ $id }}</p>
     @vite('resources/js/reservation.js')
 </x-layouts.app>
