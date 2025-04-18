@@ -1,4 +1,5 @@
 const carsListDOM = document.querySelector('#carsList');
+const carsId = document.querySelector('#carId').textContent;
 
 const carTitle = document.querySelector('#carTitle');
 const carPrice = document.querySelector('#carPrice');
@@ -17,6 +18,13 @@ function capitalize(str) {
 
 async function fetchCars(limit) {
     const response = await fetch('/api/cars?limit=' + limit);
+    const cars = await response.json();
+
+    return cars;
+}
+
+async function fetchCar() {
+    const response = await fetch('/api/cars/' + carsId);
     const cars = await response.json();
 
     return cars;
@@ -148,6 +156,6 @@ function displayCarDetails(car) {
 })();
 
 (async () => {
-    const cars = await fetchCars(1);
+    const cars = await fetchCar();
     displayCarDetails(cars);
 })();

@@ -85,7 +85,7 @@ function displayCars(cars) {
         const viewDetails = document.createElement('a');
         viewDetails.className = 'w-full h-20/100 bg-[#5937E0] text-white flex justify-center items-center rounded-xl';
         viewDetails.textContent = 'View Details';
-        viewDetails.href = `/cars/${car.id}`;
+        viewDetails.href = `/vehicule/${car.id}`;
 
         contentInner.appendChild(viewDetails);
         content.appendChild(contentInner);
