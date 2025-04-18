@@ -9,4 +9,4 @@ Pour lancer le projet :
     -  php artisan serve
     -  npm run dev
 
-(Pour voir les etapes finis et non finis, accedez a l'espace projets puis ouvrez le projet, ou clicquer sur ce lien : Projet [https://github.com/users/Natouillelevrai/projects/3])
+(Pour voir les etapes finis et non finis, accedez a l'espace projets puis ouvrez le projet, ou clicquer sur ce lien : [Projet](https://github.com/users/Natouillelevrai/projects/3))
