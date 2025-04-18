@@ -58,12 +58,10 @@
                 </div>
             </div>
 
-            <a class='w-40/100 h-6/100 text-white bg-[#5937E0] flex justify-center items-center rounded-xl'>Rent a
-                car</a>
+            <a id='rentBtn' href='#' class='w-40/100 h-6/100 text-white bg-[#5937E0] flex justify-center items-center rounded-xl'>Rent a car</a>
 
             <div class='h-30/100'>
                 <h2>Car Equipment</h2>
-
                 <div class='h-80/100 flex flex-col flex-wrap' id='carEquipement'></div>
             </div>
 
