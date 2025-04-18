@@ -12,6 +12,13 @@ const totalPrice = document.querySelector('#totalPrice');
 
 const carInfos = await fetchCar();
 
+const today = new Date().toISOString().split('T')[0];
+startDate.setAttribute('min', today);
+
+startDate.addEventListener('change', () => {
+  endDate.setAttribute('min', startDate.value);
+});
+
 async function fetchCar() {
     const response = await fetch('/api/cars/' + carsId);
     const cars = await response.json();
@@ -26,34 +33,31 @@ function displayCarDetails(car) {
 }
 
 function calculateDateDifference(startDateStr, endDateStr) {
-    try {
-        if (!startDateStr || !endDateStr) {
-            throw new Error("Both start and end dates must be provided.");
-        }
-
-        const startDate = new Date(startDateStr);
-        const endDate = new Date(endDateStr);
-
-        if (isNaN(startDate) || isNaN(endDate)) {
-            throw new Error("Invalid date format. Use the format YYYY-MM-DD.");
-        }
-
-        if (endDate < startDate) {
-            throw new Error("End date must be after the start date.");
-        }
-
-        const diffMs = endDate - startDate;
-        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-        const diffHours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-        const diffMinutes = Math.floor((diffMs / (1000 * 60)) % 60);
-        const diffSeconds = Math.floor((diffMs / 1000) % 60);
-
-        return diffDays;
+  try {
+    if (!startDateStr || !endDateStr) {
+      throw new Error("Both start and end dates must be provided.");
     }
 
-    catch (error) {
-        return `Error: ${error.message}`;
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (startDate < today) {
+      throw new Error("Start date cannot be before today.");
     }
+
+    if (endDate <= startDate) {
+      throw new Error("End date must be after start date.");
+    }
+
+    const diffMs = endDate - startDate;
+    const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+    return diffDays;
+  } catch (error) {
+    return `Error: ${error.message}`;
+  }
 }
 
 function calculPrice(days, price) {
