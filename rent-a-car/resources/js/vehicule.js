@@ -12,6 +12,8 @@ const carAir = document.querySelector('#carAir');
 const carSeat = document.querySelector('#carSeat');
 const carEquipement = document.querySelector('#carEquipement');
 
+const rentBtn = document.querySelector('#rentBtn');
+
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
@@ -128,6 +130,8 @@ function displayCarDetails(car) {
     carDoor.textContent = `${car[0].doors} doors`;
     carAir.textContent = car[0].air_conditioning ? 'Yes' : 'No';
     carSeat.textContent = `${car[0].seats} seats`;
+
+    rentBtn.href = "/vehicule/" + carsId + "/reservation"
     
     equipement.forEach((item) => {
         const div = document.createElement('div');
