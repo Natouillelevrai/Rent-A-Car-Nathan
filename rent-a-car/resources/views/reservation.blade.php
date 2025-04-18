@@ -16,13 +16,17 @@
         </div>
 
         <div class='w-30/100 flex flex-col px-20 flex justify-center items-center'>
-            <form class='w-full h-60/100 p-10 flex flex-col justify-between'>
+            <form class='w-full h-60/100 p-10 flex flex-col justify-between' id='formDom'>
                 <input type='date' class='w-full h-10 p-2 bg-gray-100 rounded-xl' id='startDate' value="2025-05-01" required>
                 <input type='date' class='w-full h-10 p-2 bg-gray-100 rounded-xl' id='endDate' value="2025-05-05" required>
 
-                <input type='email' class='w-full h-10 p-2 bg-gray-100 rounded-xl'  placeholder="Email" required>
+                <input type='email' class='w-full h-10 p-2 bg-gray-100 rounded-xl' id='email'  placeholder="Email" required>
+
+                <input type='hidden' name='id' value='{{ $id }}'>
 
                 <p>Total price : <span id='totalPrice'></span></p>
+                <p class='hidden text-green-600' id='info'></p>
+
                 <input type='submit' class='w-full h-12 text-white bg-[#5937E0] rounded-xl'>
             </form>
         </div>
