@@ -59,4 +59,8 @@ class ViewController extends Controller
             "vehicules_transmissions" => $vehicules_transmissions
         ]);  
     }
+
+    public function vehicule($id) {
+        return view("vehicule", []);
+    }
 }

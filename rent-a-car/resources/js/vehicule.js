@@ -1,29 +1,28 @@
 const carsListDOM = document.querySelector('#carsList');
-const vehiculesBtns = document.querySelector('#types').children;
-const energyBtns = document.querySelector('#energy').children;
-const transmissionsBtns = document.querySelector('#transmissions').children;
 
-let selectedType = vehiculesBtns[0]?.value || '';
-let selectedEnergy = energyBtns[0]?.value || '';
-let selectedTransmission = transmissionsBtns[0]?.value || '';
-
-vehiculesBtns[0]?.classList.add('bg-indigo-600', 'text-white');
-energyBtns[0]?.classList.add('bg-indigo-600', 'text-white');
-transmissionsBtns[0]?.classList.add('bg-indigo-600', 'text-white');
+const carTitle = document.querySelector('#carTitle');
+const carPrice = document.querySelector('#carPrice');
+const carImg = document.querySelector('#carImg');
+const carGear = document.querySelector('#carGear');
+const carFuel = document.querySelector('#carFuel');
+const carType = document.querySelector('#carType');
+const carDoor = document.querySelector('#carDoor');
+const carAir = document.querySelector('#carAir');
+const carSeat = document.querySelector('#carSeat');
+const carEquipement = document.querySelector('#carEquipement');
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-async function fetchCars(limit = "", type = "", fuel_type = "", transmission = "") {
-    const response = await fetch('/api/cars?limit=' + limit + '&type=' + type + '&fuel_type=' + fuel_type + '&transmission=' + transmission);
+async function fetchCars(limit) {
+    const response = await fetch('/api/cars?limit=' + limit);
     const cars = await response.json();
+
     return cars;
 }
 
 function displayCars(cars) {
-    carsListDOM.innerHTML = '';
-
     cars.forEach(car => {
         const card = document.createElement('div');
         card.className = 'w-30/100 h-45/100 my-3 bg-[#FAFAFA] rounded-3xl';
@@ -107,44 +106,48 @@ function displayCars(cars) {
     });
 }
 
-async function updateCars() {
-    const cars = await fetchCars(-1, selectedType, selectedEnergy, selectedTransmission);
+function displayCarDetails(car) {
+    const equipement = car[0].equipements.split(", ").map(item => item.trim());
+
+    console.log(equipement)
+
+    carTitle.textContent = `${car[0].brand}`;
+    carPrice.textContent = `${car[0].price_per_day}`;
+    carImg.src = car[0].img;
+    carGear.textContent = capitalize(car[0].transmission);
+    carFuel.textContent = capitalize(car[0].fuel_type);
+    carType.textContent = capitalize(car[0].type);
+    carDoor.textContent = `${car[0].doors} doors`;
+    carAir.textContent = car[0].air_conditioning ? 'Yes' : 'No';
+    carSeat.textContent = `${car[0].seats} seats`;
+    
+    equipement.forEach((item) => {
+        const div = document.createElement('div');
+        const round = document.createElement('div');
+        const p = document.createElement('p');
+        const icon = document.createElement('i');
+
+        div.className = 'w-50/100 h-30/100 flex flex-row items-center';
+        round.className = 'size-8 rounded-full bg-[#5937E0] text-white flex justify-center items-center';
+        p.className = 'px-3';
+        icon.className = 'fa-solid fa-check text-white w-full text-center';
+
+        div.appendChild(round);
+        round.appendChild(icon);
+        div.appendChild(p);
+
+        p.textContent = item;
+
+        carEquipement.appendChild(div);
+    });
+}
+
+(async () => {
+    const cars = await fetchCars(6);
     displayCars(cars);
-}
+})();
 
-for (let i = 0; i < vehiculesBtns.length; i++) {
-    vehiculesBtns[i].addEventListener('click', function () {
-        for (let j = 0; j < vehiculesBtns.length; j++) {
-            vehiculesBtns[j].classList.remove('bg-indigo-600', 'text-white');
-        }
-        vehiculesBtns[i].classList.add('bg-indigo-600', 'text-white');
-        selectedType = vehiculesBtns[i].value;
-        updateCars();
-    });
-}
-
-for (let i = 0; i < energyBtns.length; i++) {
-    energyBtns[i].addEventListener('click', function () {
-        for (let j = 0; j < energyBtns.length; j++) {
-            energyBtns[j].classList.remove('bg-indigo-600', 'text-white');
-        }
-        energyBtns[i].classList.add('bg-indigo-600', 'text-white');
-        selectedEnergy = energyBtns[i].value;
-        updateCars();
-    });
-}
-
-for (let i = 0; i < transmissionsBtns.length; i++) {
-    transmissionsBtns[i].addEventListener('click', function () {
-        for (let j = 0; j < transmissionsBtns.length; j++) {
-            transmissionsBtns[j].classList.remove('bg-indigo-600', 'text-white');
-        }
-        transmissionsBtns[i].classList.add('bg-indigo-600', 'text-white');
-        selectedTransmission = transmissionsBtns[i].value;
-        updateCars();
-    });
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    updateCars();
-});
+(async () => {
+    const cars = await fetchCars(1);
+    displayCarDetails(cars);
+})();

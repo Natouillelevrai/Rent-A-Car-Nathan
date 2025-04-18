@@ -76,6 +76,6 @@ class carsController extends Controller
         ->where('v.id', $id)
         ->get();
 
-        return response()->json($cars);
+        return response()->json($car);
     }
 }
